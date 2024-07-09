@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Детайли за заявка{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Детайли за заявка</h1>
+    <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+        <p class="mb-2"><strong>Заглавие:</strong> {{ ticket.subject }}</p>
+        <p class="mb-2"><strong>Съобщение:</strong> {{ ticket.message }}</p>
+        <p class="mb-2"><strong>Статус:</strong> {{ ticket.status }}</p>
+        <p class="mb-4"><strong>Потребител:</strong> {{ ticket.user.username }}</p>
+    </div>
+    <h3 class="text-2xl font-bold mb-4">Съобщения</h3>
+    <ul class="space-y-4 mb-8">
+        {% for message in ticket.messages %}
+        <li class="bg-white p-4 rounded-lg shadow">
+            <p>{{ message.content }}</p>
+            <small class="text-gray-600">От: {{ message.user.username }} в {{ message.timestamp }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="" class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="form-group mb-4">
+            {{ form.content.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.content(class="form-control w-full p-3 border border-gray-300 rounded-lg") }}
+        </div>
+        <button type="submit" name="action" value="add_message" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-2">Добави съобщение</button>
+</div>
+{% endblock %}

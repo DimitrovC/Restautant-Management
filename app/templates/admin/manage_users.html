@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Управление на потребители{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold mb-6">Управление на потребители</h2>
+    <ul class="space-y-4">
+        {% for user in users %}
+        <li class="bg-white p-4 rounded-lg shadow flex justify-between items-center">
+            <div>
+                <p class="font-semibold">{{ user.username }}</p>
+                <p class="text-gray-600">{{ user.email }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

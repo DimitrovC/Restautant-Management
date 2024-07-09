@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}Начало{% endblock %}
+{% block content %}
+<div class="header">
+    <h1 class="text-3xl md:text-5xl font-bold mb-4" data-aos="fade-up">Добре дошли в Ресторант Ритъм</h1>
+    <p class="text-lg md:text-xl mb-8" data-aos="fade-up" data-aos-delay="100">Вашето любимо място за хранене</p>
+    <a href="{{ url_for('reservations') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        data-aos="fade-up" data-aos-delay="200">Запазете място</a>
+</div>
+
+<div class="section bg-white py-12" data-aos="fade-up">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-8 md:mb-0 md:mr-8">
+            <h2 class="section-title text-center md:text-left text-3xl font-bold mb-4 md:mb-8">За Нас</h2>
+            <p class="text-gray-700 mb-4">Добре дошли в нашия ресторант, където предлагаме вкусна храна, приготвена с
+                най-свежите продукти. Нашата мисия е да осигурим незабравимо изживяване за всеки гост.</p>
+            <p class="text-gray-700">Нашите готвачи са страстни по отношение на създаването на ястия, които не само че
+                са
+                вкусни, но и изглеждат красиво. Вярваме, че храненето извън дома трябва да бъде специално изживяване,
+                като
+                се стремим да направим всеки посетител в нашия ресторант незабравим.</p>
+        </div>
+        <div class="md:w-1/2 text-center">
+            <img src="{{url_for('static', filename='img/about_us.jpg')}}" alt="Интериор на Ресторанта"
+                class="rounded-lg shadow-lg w-full md:w-4/5">
+        </div>
+    </div>
+</div>
+
+<div class="section py-12" data-aos="fade-up" id="menu">
+    <div class="container mx-auto px-4">
+        <h2 class="section-title text-center text-3xl font-bold mb-8">Нашето Меню</h2>
+        <div class="flex justify-between mb-8">
+            <div><a href="{{ url_for('menu') }}">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Покажи Меню</button>
+                </a></div>
+            <div>
+                <a href="{{ url_for('generate_qr') }}">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Покажи QR
+                        Меню</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section bg-white py-12" data-aos="fade-up">
+    <div class="container mx-auto px-4">
+        <h2 class="section-title text-center text-3xl font-bold mb-8">Специални Оферти</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for item in random_items %}
+            <div class="card bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <div class="relative">
+                    <img src="{{ item.image_url }}" class="w-full max-h-48 object-contain rounded-t-lg"
+                        alt="Изображение на Специално Предложение">
+                </div>
+                <div class="p-6">
+                    <h5 class="text-xl font-bold mb-2">{{ item.name }}</h5>
+                    <p class="text-gray-700 mb-4">{{ item.description }}</p>
+                    <p class="text-gray-900 font-bold">Цена: {{ item.price }} лв.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="section bg-gray-100 py-12" data-aos="fade-up">
+    <div class="container mx-auto text-center px-4">
+        <h2 class="section-title text-3xl font-bold mb-8">Специалитет на Шефа</h2>
+        <p class="text-gray-700 mb-4">Опитайте най-добрите ястия, подбрани от нашите опитни готвачи. Всеки седмица ви
+            предлагаме специално ястие, приготвено с най-добрите продукти.</p>
+        <div class="flex justify-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-2/3">
+                <div class="hidden md:flex space-x-2 mb-4" style="height: 300px;">
+                    <img src="{{url_for('static', filename='img/chef.jpg')}}" class="w-1/3 h-full object-contain rounded-lg"
+                        alt="Изображение на Шефа">
+                    <img src="{{url_for('static', filename='img/chef2.jpg')}}" class="w-1/3 h-full object-contain rounded-lg"
+                        alt="Изображение на Шефа">
+                    <img src="{{url_for('static', filename='img/chef3.jpg')}}" class="w-1/3 h-full object-contain rounded-lg"
+                        alt="Изображение на Шефа">
+                </div>
+                <div class="flex flex-col space-y-4 md:hidden">
+                    <img src="{{url_for('static', filename='img/chef.jpg')}}" class="w-full h-auto object-contain rounded-lg mb-4"
+                        alt="Изображение на Шефа">
+                    <img src="{{url_for('static', filename='img/chef2.jpg')}}" class="w-full h-auto object-contain rounded-lg mb-4"
+                        alt="Изображение на Шефа">
+                    <img src="{{url_for('static', filename='img/chef3.jpg')}}" class="w-full h-auto object-contain rounded-lg"
+                        alt="Изображение на Шефа">
+                </div>
+                <br><h5 class="text-2xl font-bold mb-2">Специално Ястие на Шефа</h5>
+                <p class="text-gray-700 mb-4">Уникално ястие, създадено от нашия главен готвач, комбиниращо вкусове,
+                    които ще докоснат всеки ваш вкус. Не пропускайте специалното предложение за тази седмица.</p>
+                <p class="text-gray-900 font-bold">Цена: 24.99 лв</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="section bg-gray-100 py-12" data-aos="fade-up">
+    <div class="container mx-auto px-4">
+        <h2 class="section-title text-center text-3xl font-bold mb-8">Галерия</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="card bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <img src="{{url_for('static', filename='img/gal1.jpg')}}"
+                    class="w-full h-48 object-cover rounded-t-lg" alt="Изображение от Галерията">
+            </div>
+            <div class="card bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <img src="{{url_for('static', filename='img/gal2.jpg')}}"
+                    class="w-full h-48 object-cover rounded-t-lg" alt="Изображение от Галерията">
+            </div>
+            <div class="card bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <img src="{{url_for('static', filename='img/gal3.jpg')}}"
+                    class="w-full h-48 object-cover rounded-t-lg" alt="Изображение от Галерията">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section py-12" data-aos="fade-up">
+    <div class="container mx-auto text-center px-4">
+        <h2 class="section-title text-3xl font-bold mb-8">Абонирайте се за нашият бюлетин</h2>
+        <p class="text-gray-700 mb-4">Бъдете информирани с най-новите новини, събития и специални оферти от нашия
+            ресторант. Абонирайте се сега за нашия бюлетин!</p>
+        <form class="max-w-lg mx-auto">
+            <input type="email" class="w-full p-3 mb-4 border border-gray-300 rounded-lg"
+                placeholder="Въведете вашия имейл">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Абонирайте
+                се</button>
+        </form>
+    </div>
+</div>
+
+<div class="section bg-white py-12" id="contact" data-aos="fade-up">
+    <div class="container mx-auto px-4">
+        <h2 class="section-title text-center text-3xl font-bold mb-8">Свържете се с Нас</h2>
+        <p class="text-center text-gray-700 mb-8">Бихме се радвали да чуем от вас! Свържете се с нас за всякакви
+            запитвания или обратна връзка.</p>
+        <ul class="list-unstyled text-center space-y-2">
+            <li class="text-gray-700"><i class="fas fa-phone-alt mr-2"></i> Телефон: <a href="tel:+359888888888">+359888888888</a></li>
+            <li class="text-gray-700"><i class="fas fa-envelope mr-2"></i> Имейл: <a href="mailto:info@restaurant.com">info@restaurant.com</a></li>
+            <li class="text-gray-700"><i class="fas fa-map-marker-alt mr-2"></i> Адрес: бул. „Цар Борис III“ 59, София, България</li>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

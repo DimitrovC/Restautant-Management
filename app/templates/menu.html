@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Меню{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold text-center mb-6">Меню</h2>
+    
+    <form method="POST" action="{{ url_for('menu') }}" class="mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="col">
+                <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Категория</label>
+                <select id="category" name="category" class="form-control w-full p-3 border border-gray-300 rounded-lg">
+                    <option value="">Всички</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <label for="price_range" class="block text-gray-700 text-sm font-bold mb-2">Ценови диапазон</label>
+                <select id="price_range" name="price_range" class="form-control w-full p-3 border border-gray-300 rounded-lg">
+                    <option value="">Всички</option>
+                    <option value="0-10">0 - 10</option>
+                    <option value="10-20">10 - 20</option>
+                    <option value="20-30">20 - 30</option>
+                    <option value="30-40">30 - 40</option>
+                    <option value="40-50">40 - 50</option>
+                </select>
+            </div>
+            <div class="col flex items-end">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Филтрирай</button>
+                <a href="{{ url_for('generate_qr') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 ml-2">Покажи QR Меню</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for item in menu_items %}
+        <div class="card-menu bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
+            <img src="{{ item.image_url }}" class="card-menu-img-top mb-4 w-full max-h-48 object-contain" alt="{{ item.name }}">
+            <div class="card-menu-body flex-1 flex flex-col justify-between">
+                <h5 class="card-menu-title text-xl font-bold mb-2">{{ item.name }}</h5>
+                <p class="card-menu-text mb-2">{{ item.description }}</p>
+                <p class="card-menu-text font-semibold mb-2">{{ item.price }} лв.</p>
+                <p class="card-menu-text text-gray-600 text-sm mb-2">{{ item.category }}</p>
+                <div class="mb-2">
+                    {% if item.special %}
+                    <span class="inline-block bg-green-500 text-white text-xs px-2 py-1 rounded-full">Специален продукт</span><br>
+                    {% endif %}
+                    {% if item.promotion %}
+                    <span class="inline-block bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Промоционален продукт</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

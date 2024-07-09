@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Редактирай инвентар{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Редактирай продукт</h1>
+    <form method="POST" action="" class="bg-white p-6 rounded-lg shadow-lg">
+        {{ form.hidden_tag() }}
+        <div class="form-group mb-4">
+            {{ form.name.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.name(class="form-control w-full p-3 border border-gray-300 rounded-lg") }}
+        </div>
+        <div class="form-group mb-4">
+            {{ form.quantity.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.quantity(class="form-control w-full p-3 border border-gray-300 rounded-lg") }}
+        </div>
+        <div class="form-group mb-4">
+            {{ form.threshold.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.threshold(class="form-control w-full p-3 border border-gray-300 rounded-lg") }}
+        </div>
+        <div class="form-group mb-4">
+            {{ form.supplier.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.supplier(class="form-control w-full p-3 border border-gray-300 rounded-lg") }}
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Запази</button>
+    </form>
+</div>
+{% endblock %}

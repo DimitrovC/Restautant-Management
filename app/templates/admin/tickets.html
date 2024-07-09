@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Прегледай заявки{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Заявки</h1>
+    <ul class="space-y-4">
+        {% for ticket in tickets %}
+        <li class="bg-white p-4 rounded-lg shadow flex justify-between items-center">
+            <div>
+                <p class="mb-1 font-semibold">{{ ticket.subject }}</p>
+                <p class="text-sm text-gray-600">{{ ticket.status }}</p>
+            </div>
+            <a href="{{ url_for('view_ticket', ticket_id=ticket.id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Прегледай</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

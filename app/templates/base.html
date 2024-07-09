@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <nav class="p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="text-white text-2xl font-bold">Ресторант Ритъм</a>
+            <button class="text-white md:hidden" id="mobile-menu-toggle">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <ul class="md:flex hidden space-x-4 text-white" id="navbar">
+                <li><a href="{{ url_for('index') }}">Начало</a></li>
+                <li><a href="{{ url_for('menu') }}">Меню</a></li>
+                <li><a href="{{ url_for('reservations') }}">Резервация</a></li>
+                <li><a href="{{ url_for('contact') }}">Контакт</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('profile') }}">Профил</a></li>
+                <li><a href="{{ url_for('logout') }}">Изход</a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">Вход</a></li>
+                <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <footer class="text-white text-center py-4">
+        <p>&copy; 2024 Ресторант Ритъм. Всички права запазени. | <a href="#privacy-policy">
+            Политика за поверителност</a></p>
+        <div class="flex justify-center mt-4">
+            <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init();
+        });
+
+    </script>
+    {% block js %}{% endblock %}
+</body>
+</html>
+<script src="{{url_for('static', filename='js/nav.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.2/alpine.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>

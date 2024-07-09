@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Преглед на отчет{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Отчет</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="card bg-white p-6 rounded-lg shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title text-xl font-bold mb-2">Общ брой резервации</h5>
+                <p class="card-text text-3xl font-semibold">{{ total_reservations }}</p>
+                <canvas id="reservationsChart"></canvas>
+            </div>
+        </div>
+        <div class="card bg-white p-6 rounded-lg shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title text-xl font-bold mb-2">Общ брой потребители</h5>
+                <p class="card-text text-3xl font-semibold">{{ total_users }}</p>
+                <canvas id="usersChart"></canvas>
+            </div>
+        </div>
+        <div class="card bg-white p-6 rounded-lg shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title text-xl font-bold mb-2">Общ брой гости</h5>
+                <p class="card-text text-3xl font-semibold">
+                    {% if total_sales is not none %}
+                        {{ total_sales }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </p>
+                <canvas id="guestsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const reservationsData = {{ total_reservations | tojson }};
+        const usersData = {{ total_users | tojson }};
+        const guestsData = {{ total_sales | tojson }};
+
+        const createChart = (ctx, data, label) => {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [label],
+                    datasets: [{
+                        data: [data],
+                        backgroundColor: ['#FF613B'],
+                        hoverBackgroundColor: ['#FF613B']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: false
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        createChart(document.getElementById('reservationsChart'), reservationsData, 'Резервации');
+        createChart(document.getElementById('usersChart'), usersData, 'Потребители');
+        createChart(document.getElementById('guestsChart'), guestsData, 'Гости');
+    });
+</script>
+{% endblock %}

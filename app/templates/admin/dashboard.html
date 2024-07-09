@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Административен портал{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-6">Административен портал</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+            <h3 class="text-xl font-bold mb-4">Потребители</h3>
+            <ul class="space-y-4">
+                {% for user in users %}
+                <li class="bg-white p-4 rounded-lg shadow flex justify-between items-center">
+                    <div>{{ user.username }} - {{ user.email }}</div>
+                    <div class="flex space-x-2">
+                        <a href="{{ url_for('edit_user', user_id=user.id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Редактирай</a>
+                        <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" x-data @submit.prevent="if (confirm('Съгласни ли сте, че желаете да изтриете този потребител?')) { $el.submit(); }">
+                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Изтрий</button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('add_user') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mt-4 inline-block">Добави нов потребител</a>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold mb-4">Резервации</h3>
+            <ul class="space-y-4">
+                {% for reservation in reservations %}
+                {% for user in users %}
+                <li class="bg-white p-4 rounded-lg shadow flex justify-between items-center">
+                    <div>{{ reservation.date }} - {{ reservation.time }} - Направена от: {{ user.username }}</div>
+                    <a href="{{ url_for('view_reservation', reservation_id=reservation.id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Прегледай</a>
+                </li>
+                {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div>
+            <h3 class="text-xl font-bold mb-4">Заявки</h3>
+            <ul class="space-y-4">
+                {% for ticket in tickets %}
+                <li class="bg-white p-4 rounded-lg shadow flex justify-between items-center">
+                    <div>{{ ticket.subject }} - {{ ticket.status }}</div>
+                    <div class="flex space-x-2">
+                        <a href="{{ url_for('view_ticket', ticket_id=ticket.id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Прегледай</a>
+                        <form action="{{ url_for('delete_ticket', ticket_id=ticket.id) }}" method="POST">
+                            <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Изтрий</button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold mb-4">Меню</h3>
+            <a href="{{ url_for('admin_menu') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-full block text-center">Управление на меню</a>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div>
+            <h3 class="text-xl font-bold mb-4">Служители</h3>
+            <a href="{{ url_for('view_employees') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-full block text-center">Управление на служители</a>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold mb-4">Отчети</h3>
+            <a href="{{ url_for('view_reports') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-full block text-center">Прегледай отчети</a>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div>
+            <h3 class="text-xl font-bold mb-4">Инвентар</h3>
+            <a href="{{ url_for('view_inventory') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-full block text-center">Управление на инвентар</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

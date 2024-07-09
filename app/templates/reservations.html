@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Направи резервация{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold text-center mb-6">Направи резервация</h2>
+    <form method="POST" action="" class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+        {{ form.hidden_tag() }}
+        <div class="form-group mb-4">
+            {{ form.date.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.date(class="form-control w-full p-3 border border-gray-300 rounded-lg", id="date-field", type="text") }}
+        </div>
+        <div class="form-group mb-4">
+            {{ form.time.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.time(class="form-control w-full p-3 border border-gray-300 rounded-lg") }}
+        </div>
+        <div class="form-group mb-4">
+            {{ form.guests.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+            {{ form.guests(class="form-control w-full p-3 border border-gray-300 rounded-lg") }}
+        </div>
+        <button type="submit" class="btn btn-primary w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600">Резервирай</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateField = document.getElementById('date-field');
+        const picker = new Pikaday({
+            field: dateField,
+            format: 'DD.MM.YYYY',
+            onSelect: function(date) {
+                dateField.value = moment(date).format('DD.MM.YYYY');
+            }
+        });
+        dateField.value = moment().format('DD.MM.YYYY');
+    });
+</script>
+{% endblock %}

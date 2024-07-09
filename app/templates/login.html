@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Вход{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold text-center mb-6">Вход</h2>
+    <div class="max-w-md mx-auto">
+        <form method="POST" action="{{ url_for('login') }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            {{ form.hidden_tag() }}
+            <div class="mb-4">
+                {{ form.username.label(class="block text-gray-900 text-l font-bold mb-2") }}
+                {{ form.username(class="form-input w-full py-2 px-3 border rounded-md") }}
+            </div>
+            <div class="mb-6">
+                {{ form.password.label(class="block text-gray-900 text-l font-bold mb-2") }}
+                {{ form.password(class="form-input w-full py-2 px-3 border rounded-md") }}
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="mb-6">
+                    {{ form.remember_me(class="form-check-input mr-2") }} {{ form.remember_me.label(class="text-gray-900 font-bold") }}
+                </div>
+                <div>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Вход</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

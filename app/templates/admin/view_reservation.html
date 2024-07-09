@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Детайли за резервация{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Детайли за резервация</h1>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <p class="mb-2"><strong>Дата:</strong> {{ reservation.date }}</p>
+        <p class="mb-2"><strong>Час:</strong> {{ reservation.time }}</p>
+        <p class="mb-2"><strong>Гости:</strong> {{ reservation.guests }}</p>
+        <p class="mb-4"><strong>Потребител:</strong> {{ reservation.user.username }}</p>
+        <form action="{{ url_for('delete_reservation', reservation_id=reservation.id) }}" method="POST">
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Изтрий резервация</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

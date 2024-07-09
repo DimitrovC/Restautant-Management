@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-md mx-auto">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-3xl font-bold text-center mb-6">Регистрация</h2>
+            <form method="POST" action="{{ url_for('register') }}">
+                {{ form.hidden_tag() }}
+                <div class="mb-4">
+                    {{ form.username.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.username(class="form-input w-full py-2 px-3 border rounded-md") }}
+                </div>
+                <div class="mb-4">
+                    {{ form.email.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.email(class="form-input w-full py-2 px-3 border rounded-md") }}
+                </div>
+                <div class="mb-4">
+                    {{ form.password.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.password(class="form-input w-full py-2 px-3 border rounded-md") }}
+                </div>
+                <div class="mb-4">
+                    {{ form.password2.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.password2(class="form-input w-full py-2 px-3 border rounded-md") }}
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Регистрирай се</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

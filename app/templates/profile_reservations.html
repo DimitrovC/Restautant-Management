@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Моите резервации{% endblock %}
+{% block content %}
+<div class="container mx-auto mt-8">
+    <div class="flex flex-col md:flex-row">
+        <div class="bg-gray-100 p-4 rounded-lg shadow-lg mb-4 md:mb-0 md:w-1/4">
+            <h2 class="text-2xl font-bold mb-4">Профил</h2>
+            <ul class="space-y-4">
+                <li><a href="{{ url_for('profile') }}" class="block p-2 rounded hover:bg-gray-200">Потребителски Профил</a></li>
+                <li><a href="{{ url_for('profile_reservations') }}" class="block p-2 rounded hover:bg-gray-200">Моите резервации</a></li>
+                <li><a href="{{ url_for('profile_tickets') }}" class="block p-2 rounded hover:bg-gray-200">Моите заявки</a></li>
+                <li><a href="{{ url_for('profile_settings') }}" class="block p-2 rounded hover:bg-gray-200">Настройки на акаунта</a></li>
+                {% if is_admin %}
+                    <li><a href="{{ url_for('admin_dashboard') }}" class="block p-2 rounded hover:bg-gray-200">Административно меню</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg shadow-lg md:w-3/4">
+            <h2 class="text-3xl font-bold mb-4">Моите резервации</h2>
+            {% for reservation in reservations %}
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                <p><strong>Дата:</strong> {{ reservation.date }}</p>
+                <p><strong>Час:</strong> {{ reservation.time }}</p>
+                <p><strong>Брой гости:</strong> {{ reservation.guests }}</p>
+                <form method="POST" action="{{ url_for('profile_reservations') }}">
+                    <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                    <input type="hidden" name="action" value="cancel">
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mt-2">Откажи резервация</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    @media (max-width: 768px) {
+        .md:flex-row {
+            flex-direction: column;
+        }
+        .md:w-1/4, .md:w-3/4 {
+            width: 100%;
+        }
+    }
+</style>
+
+{% endblock %}
