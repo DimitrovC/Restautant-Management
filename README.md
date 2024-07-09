@@ -33,8 +33,8 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository**:
   ```bash
-  git clone https://github.com/dimitrovc/restaurant-management.git
-  cd restaurant-management-system
+  git clone https://github.com/DimitrovC/Restautant-Management.git
+  cd Restautant-Management
   ```
 
 2. **Create a virtual environment**:
